@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LE PROCÈS DE LA DCHCOM-RSE — BSR 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* ── Fond sombre ── */
+  --ink:#0c0906;
+  --ink2:#161210;
+  --card-dark:#201d18;
+  --border-dark:#3d3428;
+  /* ── Texte sur fond sombre ── couleurs claires garanties */
+  --text-light:#ece8e2;       /* texte principal */
+  --text-mid:#c8bdb0;         /* texte secondaire */
+  --text-dim:#a09080;         /* texte tertiaire */
+  /* ── Parchemin ── */
+  --parch:#f3ead8;
+  --parch2:#e8ddc8;
+  --parch3:#d4c8a8;
+  --ink-text:#1c170e;
+  --ink-mid:#5a4e3c;
+  --ink-fade:#8a7a62;
+  --ink-rule:rgba(140,110,70,.15);
+  /* ── Accents ── */
+  --red:#be0020;
+  --red-dark:#7a0015;
+  --red-faint:rgba(190,0,32,.1);
+  --gold:#b8920a;
+  --gold2:#c9a436;
+  --gold3:#e8c460;
+  --gold-faint:rgba(184,146,10,.1);
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text-light);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ══ PROGRESS ══════════════════════════════════════ */
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(to right,var(--red),var(--gold2));z-index:1000;width:0%;transition:width .08s;pointer-events:none}
+
+/* ══ NAV ════════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,7,5,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-dark);height:56px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transform:translateY(-100%);transition:transform .4s ease}
+nav.vis{transform:translateY(0)}
+.nav-case{font-family:'Courier Prime',monospace;font-size:.65rem;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase;white-space:nowrap}
+.nav-case strong{color:var(--gold2)}
+.nav-links{display:flex;gap:1.75rem;list-style:none}
+.nav-links a{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.16em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--text-light)}
+.nav-conf{font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.18em;color:var(--red);border:1px solid var(--red-dark);padding:3px 8px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+
+/* ══ HERO ═══════════════════════════════════════════ */
+#hero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:5rem 1.5rem 4rem}
+#hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent 0,transparent 47px,rgba(255,255,255,.018) 47px,rgba(255,255,255,.018) 48px);pointer-events:none}
+#hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.72) 100%);pointer-events:none}
+
+.hero-case{font-family:'Courier Prime',monospace;font-size:clamp(.55rem,.9vw,.7rem);letter-spacing:clamp(.25em,.5vw,.5em);color:var(--gold2);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;transform:translateY(16px);animation:fu .7s ease .2s forwards;position:relative;z-index:1}
+.hero-case::before,.hero-case::after{content:'──';opacity:.4;margin:0 .5rem}
+
+.hero-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,9vw,8.5rem);font-weight:900;line-height:.9;letter-spacing:-.025em;color:#f5f0e8;margin-bottom:1.5rem;opacity:0;transform:translateY(22px);animation:fu .9s ease .45s forwards;position:relative;z-index:1}
+.hero-title em{font-style:italic;color:#ccc4b8;display:block;font-size:.76em}
+
+.stamp-hero{display:inline-block;position:relative;margin:1.5rem 0;opacity:0;animation:stampIn .8s cubic-bezier(.22,1,.36,1) 1.3s forwards;z-index:2}
+.stamp-hero .s-inner{font-family:'Courier Prime',monospace;font-weight:700;font-size:clamp(1.5rem,4.5vw,4.5rem);letter-spacing:clamp(.2em,.4vw,.38em);color:var(--red);border:4px solid var(--red);padding:.3em .7em;display:inline-block;transform:rotate(-7deg);text-transform:uppercase;background:rgba(190,0,32,.04);box-shadow:0 0 0 1px rgba(190,0,32,.18),inset 0 0 50px rgba(190,0,32,.04),0 0 40px rgba(190,0,32,.15)}
+.stamp-hero .s-inner::before{content:'';position:absolute;inset:4px;border:1px solid rgba(190,0,32,.22)}
+
+.hero-sub{font-family:'EB Garamond',Georgia,serif;font-size:clamp(.9rem,1.5vw,1.05rem);color:var(--text-dim);max-width:440px;margin:.75rem auto 0;opacity:0;transform:translateY(14px);animation:fu .7s ease 2.1s forwards;z-index:1;position:relative;line-height:1.6;font-style:italic}
+
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fu .6s ease 2.6s forwards;z-index:2}
+.scroll-hint span{font-family:'Courier Prime',monospace;font-size:.56rem;letter-spacing:.4em;color:var(--border-dark);text-transform:uppercase}
+.scroll-needle{width:1px;height:32px;background:linear-gradient(to bottom,var(--text-dim),transparent);animation:needle 2s ease infinite 3s}
+
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes stampIn{0%{opacity:0;transform:scale(1.7) rotate(-3deg)}45%{opacity:1}68%{transform:scale(.97) rotate(-8deg)}100%{opacity:1;transform:scale(1) rotate(-7deg)}}
+@keyframes needle{0%,100%{opacity:.7}50%{opacity:.2}}
+
+/* ══ SECTIONS SOMBRES ═══════════════════════════════ */
+.dark-sec{background:var(--ink);padding:5rem 0}
+.dark-sec .inner{max-width:1060px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem)}
+
+/* ══ SECTIONS PARCHEMIN ══════════════════════════════ */
+.parch-sec{background:var(--parch);color:var(--ink-text);padding:5rem 0;position:relative}
+.parch-sec::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent 0,transparent 27px,var(--ink-rule) 27px,var(--ink-rule) 28px);pointer-events:none}
+.parch-sec.angle-top{clip-path:polygon(0 40px,100% 0,100% 100%,0 100%);margin-top:-40px;padding-top:calc(5rem + 40px)}
+.parch-sec.angle-top-rev{clip-path:polygon(0 0,100% 40px,100% 100%,0 100%);margin-top:-40px;padding-top:calc(5rem + 40px)}
+.parch-sec .inner{max-width:1060px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem);position:relative;z-index:1}
+
+/* ══ TYPOGRAPHIE COMMUNE ════════════════════════════ */
+.sec-eyebrow{font-family:'Courier Prime',monospace;font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem}
+.sec-eyebrow::after{content:'';flex:1;max-width:50px;height:1px;opacity:.4}
+.dark-sec .sec-eyebrow{color:var(--gold2)}
+.dark-sec .sec-eyebrow::after{background:var(--gold2)}
+.parch-sec .sec-eyebrow{color:var(--gold)}
+.parch-sec .sec-eyebrow::after{background:var(--gold)}
+
+.sec-title{font-family:'Playfair Display',Georgia,serif;font-weight:700;line-height:1.1;margin-bottom:1.2rem}
+.dark-sec .sec-title{font-size:clamp(1.75rem,4vw,3.2rem);color:#f5f0e8}
+.parch-sec .sec-title{font-size:clamp(1.6rem,3.5vw,2.8rem);color:var(--ink-text)}
+
+.sec-lead{line-height:1.85;margin-bottom:2.5rem;font-size:clamp(.9rem,1.5vw,1.1rem)}
+.dark-sec .sec-lead{color:var(--text-mid);max-width:640px}
+.parch-sec .sec-lead{font-family:'EB Garamond',Georgia,serif;font-size:clamp(.95rem,1.5vw,1.1rem);color:var(--ink-mid);max-width:640px}
+
+/* ══ REVEAL ══════════════════════════════════════════ */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.28s}.d4{transition-delay:.36s}.d5{transition-delay:.45s}
+
+/* ══ QUOTE BLOCK ═════════════════════════════════════ */
+.qblock-dark{border-left:3px solid var(--red);padding:1.2rem 1.5rem;background:var(--red-faint);border-radius:0 3px 3px 0;margin:1.5rem 0}
+.qblock-dark p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--text-light);line-height:1.65}
+
+/* ══ CARTES SOMBRES ══════════════════════════════════ */
+.dark-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1.1rem;margin:2.5rem 0}
+.dark-card{background:var(--card-dark);border:1px solid var(--border-dark);border-radius:3px;padding:1.4rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.dark-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--red),transparent);opacity:0;transition:opacity .3s}
+.dark-card:hover{border-color:rgba(184,146,10,.4);transform:translateY(-3px)}
+.dark-card:hover::before{opacity:1}
+.dc-num{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.28em;color:var(--gold2);text-transform:uppercase;margin-bottom:.7rem}
+.dc-title{font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:700;color:#f0ebe4;margin-bottom:.55rem;line-height:1.3}
+.dc-text{font-size:.875rem;color:var(--text-mid);line-height:1.7}
+
+/* ══ NAME TAG ════════════════════════════════════════ */
+.name-tag{font-family:'Courier Prime',monospace;font-size:.72rem;letter-spacing:.1em;font-weight:700;color:var(--gold2);background:rgba(184,146,10,.12);border:1px solid rgba(184,146,10,.35);padding:2px 8px;border-radius:2px;white-space:nowrap}
+
+/* ══ CARTES DOCUMENT (parchemin) ═════════════════════ */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:1.1rem;margin:2.5rem 0}
+.doc-card{background:#fff;border:1px solid var(--parch3);border-radius:2px;padding:1.4rem 1.2rem;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.07);transition:transform .3s,box-shadow .3s}
+.doc-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
+.doc-card::after{content:'';position:absolute;bottom:0;right:0;width:20px;height:20px;background:linear-gradient(225deg,var(--parch3) 50%,transparent 50%)}
+.doc-stamp{font-family:'Courier Prime',monospace;font-size:.48rem;letter-spacing:.16em;color:var(--red);border:1.5px solid var(--red);padding:2px 4px;transform:rotate(7deg);display:inline-block;position:absolute;top:9px;right:13px;opacity:.7;text-transform:uppercase}
+.doc-ico{font-size:1.7rem;margin-bottom:.85rem;display:block}
+.doc-nm{font-family:'Courier Prime',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.4rem}
+.doc-tx{font-family:'EB Garamond',Georgia,serif;font-size:.95rem;color:var(--ink-mid);line-height:1.65}
+
+/* ══ TABLEAU DISTRIBUTION ════════════════════════════ */
+.cast{display:grid;gap:1px;background:var(--border-dark);border:1px solid var(--border-dark);border-radius:3px;overflow:hidden;margin:2.5rem 0}
+.crow{display:grid;grid-template-columns:115px 1fr 2fr;background:var(--card-dark)}
+.crow.head{background:var(--ink2);font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--gold2);text-transform:uppercase}
+.crow:not(.head){transition:background .2s}
+.crow:not(.head):hover{background:rgba(184,146,10,.05)}
+.cc{padding:.9rem 1.1rem;font-size:.875rem;border-right:1px solid var(--border-dark);line-height:1.55;color:var(--text-mid)}
+.cc:last-child{border-right:none}
+.cc.name-cell{color:var(--text-light)}
+.role-badge{font-family:'Courier Prime',monospace;font-size:.64rem;letter-spacing:.08em;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:2px;display:inline-block;white-space:nowrap}
+.rb-juge{color:var(--gold2);border:1px solid rgba(184,146,10,.35);background:rgba(184,146,10,.08)}
+.rb-proc{color:#ff6070;border:1px solid rgba(190,0,32,.4);background:var(--red-faint)}
+.rb-gref{color:#ccc;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05)}
+.rb-rse{color:#6dca9e;border:1px solid rgba(90,173,142,.3);background:rgba(90,173,142,.08)}
+.rb-com{color:#8dc4e8;border:1px solid rgba(122,176,216,.3);background:rgba(122,176,216,.08)}
+.rb-ch{color:var(--gold3);border:1px solid rgba(201,164,54,.3);background:rgba(201,164,54,.08)}
+.rb-tem{color:#bbb;border:1px solid rgba(180,180,180,.25);background:rgba(180,180,180,.06)}
+.rb-jury{color:#b8a8e8;border:1px solid rgba(160,142,216,.3);background:rgba(160,142,216,.08)}
+
+/* ══ FOCUS PROCUREUR ═════════════════════════════════ */
+.proc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:2.5rem}
+.proc-card{background:var(--card-dark);border:1px solid var(--border-dark);border-radius:3px;padding:1.4rem}
+.proc-card-label{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;margin-bottom:.7rem}
+.proc-card-name{font-family:'Courier Prime',monospace;font-size:.9rem;color:var(--gold2);font-weight:700;margin-bottom:.3rem}
+.proc-card-title{font-family:'Courier Prime',monospace;font-size:.8rem;color:var(--text-dim);margin-bottom:.7rem}
+.proc-card-text{font-size:.875rem;color:var(--text-mid);line-height:1.7}
+.proc-card-quote{font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.1rem);color:var(--text-light);line-height:1.85}
+
+/* ══ SÉPARATEUR GAVEL ════════════════════════════════ */
+.gavel-div{display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:1.75rem 2rem}
+.gavel-div::before,.gavel-div::after{content:'';flex:1;max-width:260px;height:1px;background:var(--border-dark)}
+.gavel-ico{font-size:1.2rem;color:var(--gold2);opacity:.5}
+
+/* ══ TIMELINE DÉROULÉ ════════════════════════════════ */
+.tl{position:relative;margin:2.5rem 0}
+.tl::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--red),var(--gold2),#5aad8e);opacity:.45}
+.tl-item{display:flex;gap:1.5rem;margin-bottom:2.1rem}
+.tl-dot{width:44px;height:44px;border-radius:50%;border:1px solid var(--border-dark);background:var(--ink2);display:flex;align-items:center;justify-content:center;font-family:'Courier Prime',monospace;font-size:.68rem;font-weight:700;color:var(--gold2);flex-shrink:0;z-index:1;position:relative;transition:border-color .3s,background .3s}
+.tl-item:hover .tl-dot{border-color:var(--gold2);background:rgba(184,146,10,.12)}
+.tl-box{flex:1;min-width:0;background:var(--card-dark);border:1px solid var(--border-dark);border-radius:3px;padding:1.25rem;transition:border-color .3s}
+.tl-item:hover .tl-box{border-color:rgba(184,146,10,.25)}
+.tl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem;flex-wrap:wrap;gap:.5rem}
+.tl-title{font-family:'Playfair Display',Georgia,serif;font-size:1rem;font-weight:700;color:#f0ebe4}
+.tl-dur{font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.18em;color:var(--gold2);border:1px solid rgba(184,146,10,.3);padding:2px 7px;border-radius:2px;white-space:nowrap}
+
+/* ══ BLOCS SCRIPT (parchemin blanc) ══════════════════ */
+.parch-script{background:#fff;border:1px solid var(--parch3);border-radius:2px;padding:1rem 1.25rem;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.05);margin:.8rem 0}
+.parch-script+.parch-script{margin-top:.5rem}
+.parch-script::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px 0 0 2px}
+.ps-juge::before{background:var(--gold)}
+.ps-proc::before{background:var(--red)}
+.ps-gref::before{background:#888}
+.ps-narr::before{background:var(--parch3)}
+.ps-speaker{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.3rem}
+.ps-juge .ps-speaker{color:var(--gold)}
+.ps-proc .ps-speaker{color:var(--red)}
+.ps-gref .ps-speaker{color:#555}
+.ps-narr .ps-speaker{color:var(--ink-fade);font-style:italic}
+.ps-text{font-family:'EB Garamond',Georgia,serif;font-size:1rem;color:var(--ink-text);line-height:1.65}
+.ps-narr .ps-text{color:var(--ink-fade);font-style:italic;font-size:.9rem}
+
+/* ══ CHEFS D'ACCUSATION (tampons) ═════════════════════ */
+.charges-dock{display:flex;flex-direction:column;gap:.7rem;margin:.85rem 0 .6rem}
+.charge-stamp{display:flex;align-items:center;gap:.8rem;font-family:'Courier Prime',monospace;font-weight:700;font-size:clamp(.65rem,1.2vw,.8rem);letter-spacing:.15em;text-transform:uppercase;color:var(--red);border:2px solid var(--red);padding:.4em .9em;border-radius:2px;background:var(--red-faint);position:relative;opacity:0;transform:scale(1.08) rotate(-1.5deg);transition:opacity .35s,transform .35s cubic-bezier(.22,1,.36,1)}
+.charge-stamp.on{opacity:1;transform:scale(1) rotate(-1.5deg)}
+.charge-stamp::before{content:'';position:absolute;inset:3px;border:1px solid rgba(190,0,32,.2)}
+.charge-num{font-size:.56rem;opacity:.65}
+
+/* ══ STREAMS PLAIDOIRIES ═════════════════════════════ */
+.stream{border-radius:3px;padding:1rem;margin-bottom:.85rem}
+.stream.rse{border:1px solid rgba(45,106,79,.3);background:rgba(45,106,79,.07)}
+.stream.com{border:1px solid rgba(26,58,107,.4);background:rgba(26,58,107,.08)}
+.stream.ch{border:1px solid rgba(184,146,10,.3);background:rgba(184,146,10,.06)}
+.stream-label{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:3px 8px;border-radius:2px;display:inline-flex;margin-bottom:.75rem}
+.sl-rse{color:#6dca9e;background:rgba(90,173,142,.12);border:1px solid rgba(90,173,142,.3)}
+.sl-com{color:#8dc4e8;background:rgba(122,176,216,.1);border:1px solid rgba(122,176,216,.3)}
+.sl-ch{color:var(--gold3);background:rgba(201,164,54,.1);border:1px solid rgba(201,164,54,.3)}
+
+/* ══ PIÈCES À CONVICTION ═════════════════════════════ */
+.ev-grid{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}
+.ev-card{display:flex;align-items:flex-start;gap:.8rem;background:rgba(0,0,0,.22);padding:.6rem .85rem;border-radius:3px;border-left:2px solid}
+.ev-card.rse{border-color:#2d6a4f}
+.ev-card.com{border-color:#1a3a6b}
+.ev-card.ch{border-color:var(--gold)}
+.ev-num{font-family:'Courier Prime',monospace;font-size:.58rem;color:var(--text-dim);white-space:nowrap;flex-shrink:0;padding-top:2px;letter-spacing:.06em}
+.ev-txt{font-size:.875rem;color:var(--text-light);line-height:1.5}
+
+/* ══ CHECKLIST PARCHEMIN ═════════════════════════════ */
+.cl-wrap{display:flex;flex-direction:column;gap:1.4rem;margin:2.5rem 0}
+.cl-item{display:grid;grid-template-columns:68px 1fr;gap:1.25rem;align-items:start}
+.j-badge{background:#fff;border:1px solid var(--parch3);border-radius:3px;padding:.75rem .35rem;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.j-badge::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.jb-red::after{background:var(--red)}
+.jb-ink::after{background:var(--ink-mid)}
+.jb-gold::after{background:var(--gold)}
+.j-n{font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;font-weight:700;line-height:1;display:block}
+.jb-red .j-n{color:var(--red)}
+.jb-ink .j-n{color:var(--ink-text)}
+.jb-gold .j-n{color:var(--gold)}
+.j-l{font-family:'Courier Prime',monospace;font-size:.46rem;letter-spacing:.2em;color:var(--ink-fade);text-transform:uppercase;display:block;margin-top:3px;line-height:1.4}
+.cl-box{background:#fff;border:1px solid var(--parch3);border-radius:3px;padding:1.1rem 1.3rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cl-sub{font-family:'Courier Prime',monospace;font-size:.64rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;padding-bottom:.45rem;border-bottom:1px solid var(--parch3)}
+.cl-list{list-style:none;padding:0}
+.cl-list li{font-family:'EB Garamond',Georgia,serif;font-size:.97rem;color:var(--ink-mid);padding:.32rem 0 .32rem 1.4rem;position:relative;line-height:1.5}
+.cl-list li::before{content:'□';position:absolute;left:0;color:var(--parch3);font-size:.95rem;line-height:1.3}
+.cl-list li.strong{color:var(--ink-text);font-style:normal}
+.cl-list li.italic{font-style:italic;color:var(--ink-text)}
+
+/* ══ FINALE ══════════════════════════════════════════ */
+#finale{background:#000;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem;position:relative;overflow:hidden}
+#finale::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 50%,rgba(190,0,32,.12) 0%,transparent 70%);pointer-events:none;animation:breathe 5s ease infinite}
+@keyframes breathe{0%,100%{opacity:.7}50%{opacity:1}}
+
+.wax-seal{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#d42030,#8b0012);box-shadow:0 6px 24px rgba(200,0,30,.35),inset 0 -3px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1.75rem;position:relative;flex-shrink:0}
+.wax-seal::before{content:'⚖';font-size:1.75rem;color:rgba(255,230,230,.85)}
+.wax-seal::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(200,0,30,.22)}
+
+.vrd-label{font-family:'Courier Prime',monospace;font-size:clamp(.58rem,.9vw,.68rem);letter-spacing:clamp(.25em,.4vw,.45em);color:var(--gold2);text-transform:uppercase;margin-bottom:1.75rem}
+.vrd-main{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.2rem,7vw,6.5rem);font-weight:900;color:#f5f0e8;line-height:1.0;letter-spacing:-.02em;max-width:700px}
+.vrd-accent{color:var(--red);font-style:italic;display:block}
+.vrd-sursis{font-family:'Courier Prime',monospace;font-size:clamp(.65rem,1vw,.75rem);letter-spacing:.22em;color:var(--gold2);border:1px solid rgba(184,146,10,.35);padding:.45rem 1rem;border-radius:2px;display:inline-block;margin-top:1.4rem}
+.vrd-narr{font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:clamp(.9rem,1.5vw,1.05rem);color:rgba(200,190,178,.5);margin-top:3rem;line-height:2;max-width:560px;text-align:center}
+.vrd-mantra{display:flex;flex-direction:column;gap:.45rem;margin-top:3rem;text-align:center}
+.vrd-mantra span{font-family:'Playfair Display',Georgia,serif;font-style:italic}
+
+footer{background:var(--ink2);border-top:1px solid var(--border-dark);padding:1.5rem;text-align:center}
+footer p{font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.25em;color:var(--text-dim);text-transform:uppercase}
+
+/* ══ RESPONSIVE : TABLETTE ════════════════════════════ */
+@media(max-width:900px){
+  .dark-sec,.parch-sec{padding:4rem 0}
+  .proc-grid{grid-template-columns:1fr}
+  .crow{grid-template-columns:100px 1fr}
+  .crow .cc:last-child{display:none}
+  .crow.head .cc:last-child{display:none}
+}
+
+/* ══ RESPONSIVE : MOBILE ══════════════════════════════ */
+@media(max-width:680px){
+  /* Nav */
+  nav{padding:0 1rem;gap:.5rem}
+  .nav-links{display:none}
+  .nav-case{font-size:.55rem;letter-spacing:.12em}
+
+  /* Sections */
+  .dark-sec,.parch-sec{padding:3.5rem 0}
+  .dark-sec .inner,.parch-sec .inner{padding:0 1rem}
+
+  /* Sections parchemin : désactiver les angles */
+  .parch-sec.angle-top,.parch-sec.angle-top-rev{clip-path:none;margin-top:0;padding-top:3.5rem}
+
+  /* Hero */
+  .hero-case::before,.hero-case::after{display:none}
+  .hero-case{letter-spacing:.18em}
+  .hero-title{letter-spacing:-.02em}
+
+  /* Stamp hero */
+  .stamp-hero .s-inner{letter-spacing:.2em;border-width:3px}
+
+  /* Tableau distribution */
+  .cast{margin:1.5rem 0}
+  .crow{grid-template-columns:1fr}
+  .crow.head{display:none}
+  .cc{border-right:none !important;padding:.75rem 1rem}
+  .cc.name-cell{padding-top:0}
+  /* Stack: affiche le rôle en pleine largeur, puis le nom, puis cacher description */
+  .crow:not(.head) .cc:nth-child(3){display:none}
+
+  /* Cards */
+  .dark-cards{grid-template-columns:1fr}
+  .doc-grid{grid-template-columns:1fr 1fr}
+
+  /* Timeline */
+  .tl::before{left:17px}
+  .tl-dot{width:34px;height:34px;font-size:.6rem}
+  .tl-item{gap:1rem}
+  .tl-box{padding:1rem}
+  .tl-head{flex-direction:column;align-items:flex-start;gap:.3rem}
+
+  /* Charges */
+  .charge-stamp{font-size:.62rem;letter-spacing:.1em;padding:.4em .7em}
+
+  /* Checklist */
+  .cl-item{grid-template-columns:56px 1fr;gap:1rem}
+  .j-badge{padding:.6rem .25rem}
+  .j-n{font-size:1.2rem}
+  .cl-box{padding:.9rem 1rem}
+
+  /* Proc grid */
+  .proc-grid{grid-template-columns:1fr}
+
+  /* Finale */
+  .wax-seal{width:65px;height:65px}
+  .wax-seal::before{font-size:1.4rem}
+  .vrd-narr{display:none}
+}
+
+/* ══ RESPONSIVE : TRÈS PETIT ══════════════════════════ */
+@media(max-width:400px){
+  .doc-grid{grid-template-columns:1fr}
+  .stamp-hero .s-inner{padding:.3em .5em;letter-spacing:.15em;border-width:2px}
+  .charge-stamp{font-size:.58rem;padding:.35em .6em}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="navbar">
+  <div class="nav-case">Affaire <strong>BSR-2026</strong> · DCHCOM-RSE</div>
+  <ul class="nav-links">
+    <li><a href="#concept">L'idée</a></li>
+    <li><a href="#sceno">Scénographie</a></li>
+    <li><a href="#distrib">Distribution</a></li>
+    <li><a href="#deroule">Déroulé</a></li>
+  </ul>
+  <span class="nav-conf">Confidentiel</span>
+</nav>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <div class="hero-case">Groupe COFINA &nbsp;·&nbsp; BSR Juillet 2026 &nbsp;·&nbsp; DCHCOM-RSE</div>
+  <h1 class="hero-title">
+    Le Procès<br>
+    <em>de la DCHCOM-RSE</em>
+  </h1>
+  <div class="stamp-hero">
+    <div class="s-inner">ACCUS&Eacute;E</div>
+  </div>
+  <p class="hero-sub">Proposition de mise en scène &mdash; Confidentiel &mdash; Usage interne</p>
+  <div class="scroll-hint">
+    <span>Dossier</span>
+    <div class="scroll-needle"></div>
+  </div>
+</section>
+
+<!-- ════════════════════ 01 – L'IDÉE ════════════════════ -->
+<div class="dark-sec" id="concept">
+<div class="inner">
+  <div class="sec-eyebrow rev">01 &nbsp;—&nbsp; L'idée</div>
+  <h2 class="sec-title rev d1">Pour ce BSR, la DCHCOM-RSE ne présente pas ses résultats.</h2>
+  <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.2rem,2.5vw,1.4rem);color:#e8ddd4;margin-bottom:1.5rem;line-height:1.4" class="rev d2">Elle les <em>plaide</em>.</p>
+
+  <div class="qblock-dark rev d3">
+    <p>Ce qui distingue cette édition des précédentes, ce n'est pas l'animation. C'est la structure. Un procès est exactement ce qu'est un BSR&nbsp;: une accusation, des preuves, un contre-interrogatoire, un verdict. Nous utilisons simplement un cadre narratif qui rend cette structure <strong>visible et mémorable</strong>.</p>
+  </div>
+
+  <p style="color:var(--text-mid);max-width:700px;line-height:1.85;margin-bottom:2.5rem;font-size:.95rem" class="rev">
+    Le concept s'appelle «&nbsp;Le Procès&nbsp;». La DCHCOM-RSE est accusée d'inaction. Nos résultats sont les pièces à conviction. Et le verdict, prononcé en direct par les dirigeants en charge de la notation, est inévitable.
+  </p>
+
+  <div class="sec-eyebrow rev" style="margin-top:2.5rem">Ce qui est nouveau &amp; inédit</div>
+  <div class="dark-cards">
+    <div class="dark-card rev d1">
+      <div class="dc-num">Nouveauté 01</div>
+      <div class="dc-title">Le Procureur vient d'une autre direction</div>
+      <p class="dc-text">Un.e responsable hors du département, idéalement issu.e d'une autre Direction de CTI. Notre proposition&nbsp;: <span class="name-tag">Elhadj KANE</span>, Directeur Juridique &amp; Conformité — un profil dont la fonction même est de garantir les règles et la rigueur, et qui choisit, après examen des preuves, de retirer ses accusations. Ce retournement ne peut pas venir de nous.</p>
+    </div>
+    <div class="dark-card rev d2">
+      <div class="dc-num">Nouveauté 02</div>
+      <div class="dc-title">Une vidéo d'ouverture</div>
+      <p class="dc-text">Fond noir, voix off grave, logo Groupe COFINA + tampon rouge ACCUSÉE. Ton documentaire juridique. Elle installe la tension avant le premier mot.</p>
+    </div>
+    <div class="dark-card rev d3">
+      <div class="dc-num">Nouveauté 03</div>
+      <div class="dc-title">Une toge. Une seule.</div>
+      <p class="dc-text">Portée par notre VP-DCHCOM-RSE sur sa tenue habituelle. Enfilée discrètement quand le Greffier prend la parole. Ce geste, vu par toute la salle, dit tout.</p>
+    </div>
+    <div class="dark-card rev d4">
+      <div class="dc-num">Nouveauté 04</div>
+      <div class="dc-title">Les questionneurs = le jury</div>
+      <p class="dc-text">Leurs questions sont le contre-interrogatoire. Leur notation est le verdict. Le format BSR est totalement intégré.</p>
+    </div>
+    <div class="dark-card rev d5" style="border-color:rgba(190,0,32,.35)">
+      <div class="dc-num" style="color:var(--red)">Nouveauté 05</div>
+      <div class="dc-title">Un verdict en deux temps</div>
+      <p class="dc-text" style="color:var(--text-mid)">CONDAMNÉE À LA PERFORMANCE — avec sursis. Acquittée des chefs d'inaction, condamnée à la performance, contrôle dans 6 mois.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════ 02 – SCÉNOGRAPHIE (parchemin) ════════════════════ -->
+<div class="parch-sec angle-top" id="sceno">
+<div class="inner">
+  <div class="sec-eyebrow rev">02 &nbsp;—&nbsp; La scénographie</div>
+  <h2 class="sec-title rev d1">Trois types d'éléments.</h2>
+  <p class="sec-lead rev d2">La force du concept ne vient pas des accessoires — elle vient de <strong>la structure et de l'équipe</strong>.</p>
+
+  <div class="doc-grid">
+    <div class="doc-card rev d1">
+      <div class="doc-stamp">Confidentiel</div>
+      <span class="doc-ico">🔨</span>
+      <div class="doc-nm">Le Marteau</div>
+      <p class="doc-tx">Un vrai marteau de juge en bois. Trois coups&nbsp;: à l'ouverture, avant le verdict, au verdict. Seul effet sonore.</p>
+    </div>
+    <div class="doc-card rev d2">
+      <div class="doc-stamp">Confidentiel</div>
+      <span class="doc-ico">📁</span>
+      <div class="doc-nm">Les Dossiers</div>
+      <p class="doc-tx">Carton épais tamponnés CONFIDENTIEL en rouge. Signal visuel fort pour chaque membre.</p>
+    </div>
+    <div class="doc-card rev d3">
+      <div class="doc-stamp">Confidentiel</div>
+      <span class="doc-ico">👘</span>
+      <div class="doc-nm">La Toge</div>
+      <p class="doc-tx">Une seule. VP-DCHCOM-RSE. Reste de l'équipe en tenue sombre et coordonnée. Un signal, pas un déguisement.</p>
+    </div>
+    <div class="doc-card rev d4">
+      <div class="doc-stamp">Confidentiel</div>
+      <span class="doc-ico">🖥</span>
+      <div class="doc-nm">La Robe Noire</div>
+      <p class="doc-tx">Portée par les Maîtres. Fonds d'écran JUGE · PROCUREUR · MAÎTRE · GREFFIER.</p>
+    </div>
+    <div class="doc-card rev d5">
+      <div class="doc-stamp">Confidentiel</div>
+      <span class="doc-ico">📋</span>
+      <div class="doc-nm">Slide 1</div>
+      <p class="doc-tx">AFFAIRE N° BSR-Juillet 2026. Le concept est installé avant le premier mot.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════ 03 – DISTRIBUTION ════════════════════ -->
+<div class="dark-sec" id="distrib" style="padding-top:4.5rem">
+<div class="inner">
+  <div class="sec-eyebrow rev">03 &nbsp;—&nbsp; La distribution</div>
+  <h2 class="sec-title rev d1">L'organisation suit la structure réelle de la DCHCOM-RSE.</h2>
+  <p class="sec-lead rev d2">Chaque responsable ouvre son stream, présente la logique de défense, puis donne la main à son équipe.</p>
+
+  <div class="cast rev">
+    <div class="crow head">
+      <div class="cc">Rôle</div>
+      <div class="cc">Qui</div>
+      <div class="cc">Mission</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-juge">Le Juge</span></div>
+      <div class="cc name-cell">VP-DCHCOM-RSE</div>
+      <div class="cc">Porte la toge. Orchestre l'audience. Frappe le marteau. Prononce le verdict.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-proc">Le Procureur</span></div>
+      <div class="cc name-cell">Un.e responsable hors du département — <span style="color:var(--gold2);font-style:italic">Proposition&nbsp;: Elhadj KANE, Dir. Juridique &amp; Conformité</span></div>
+      <div class="cc">Dossier rouge CONFIDENTIEL. Chefs d'accusation. Retire ses accusations au verdict. Moment le plus puissant.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-gref">Le Greffier</span></div>
+      <div class="cc name-cell">Membre transverse</div>
+      <div class="cc">Fond d'écran GREFFIER. Ouvre l'audience. Annonce les pièces.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-rse">Collège RSE</span></div>
+      <div class="cc name-cell">Head RSE + équipe</div>
+      <div class="cc">Phrase d'attaque + plaidoirie avec l'équipe.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-com">Collège COM</span></div>
+      <div class="cc name-cell">Head COM + équipe</div>
+      <div class="cc">Ouvre le stream. Déroule la plaidoirie avec ses Maîtres.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-ch">Collège CH</span></div>
+      <div class="cc name-cell">Directrice CH + équipe</div>
+      <div class="cc">Ouvre le stream. Déroule avec l'équipe.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-tem">Témoins</span></div>
+      <div class="cc name-cell">Responsables filiales (salle/visio)</div>
+      <div class="cc">Une question du Juge. Une réponse spontanée. Leur parole vaut mille slides.</div>
+    </div>
+    <div class="crow">
+      <div class="cc"><span class="role-badge rb-jury">Le Jury</span></div>
+      <div class="cc name-cell">GMD, DMD + questionneurs</div>
+      <div class="cc">Leurs questions = contre-interrogatoire. Leur notation = le verdict.</div>
+    </div>
+  </div>
+
+  <div class="proc-grid rev">
+    <div class="proc-card" style="border-color:rgba(190,0,32,.35);background:rgba(190,0,32,.05)">
+      <div class="proc-card-label" style="color:var(--red)">Notre proposition pour ce rôle</div>
+      <div class="proc-card-name">Elhadj KANE</div>
+      <div class="proc-card-title">Directeur Juridique &amp; Conformité — Groupe COFINA</div>
+      <p class="proc-card-text">Son profil est stratégique&nbsp;: un directeur dont la fonction est de garantir les règles et la conformité, et qui choisit, après examen des preuves, de retirer ses accusations. Ce retournement a un poids institutionnel que personne d'autre ne peut donner. Une fois validé, il sera briefé complètement sur les chefs d'accusation, les preuves et le retournement final.</p>
+    </div>
+    <div class="proc-card" style="background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.06)">
+      <div class="proc-card-label" style="color:var(--red)">Le retournement final</div>
+      <p class="proc-card-quote">«&nbsp;J'ai accusé la DCHCOM-RSE d'inaction. Les preuves présentées m'obligent à retirer cette accusation. Leur travail a eu un impact concret sur notre filiale.&nbsp;»</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════ SÉPARATEUR ════════════════════ -->
+<div class="gavel-div rev"><span class="gavel-ico">⚖</span></div>
+
+<!-- ════════════════════ 04 – DÉROULÉ ════════════════════ -->
+<div class="dark-sec" id="deroule" style="padding-top:2rem">
+<div class="inner">
+  <div class="sec-eyebrow rev">04 &nbsp;—&nbsp; Le déroulé</div>
+  <h2 class="sec-title rev d1">Cinq séquences.<br>Un seul verdict.</h2>
+
+  <div class="tl rev">
+
+    <!-- VIDÉO -->
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:rgba(190,0,32,.4);color:var(--red);font-size:.65rem">▶</div>
+      <div class="tl-box" style="border-color:rgba(190,0,32,.22)">
+        <div class="tl-head">
+          <div class="tl-title" style="color:#ff8080">Vidéo d'ouverture</div>
+          <div class="tl-dur">20 sec max</div>
+        </div>
+        <div class="parch-script ps-narr"><div class="ps-speaker">Contexte</div><p class="ps-text">La salle est encore en transition. La vidéo démarre automatiquement. Fond noir, voix off grave, logo COFINA + tampon ACCUSÉE.</p></div>
+        <div class="parch-script ps-gref"><div class="ps-speaker">Voix off</div><p class="ps-text">«&nbsp;Le Groupe COFINA. 2026. Une direction est accusée. Communication. Capital Humain. RSE. Inaction caractérisée. L'audience est ouverte.&nbsp;»</p></div>
+        <div class="parch-script ps-narr"><div class="ps-speaker">→</div><p class="ps-text">Écran noir. Deux secondes.</p></div>
+      </div>
+    </div>
+
+    <!-- SÉQ 1 -->
+    <div class="tl-item">
+      <div class="tl-dot">01</div>
+      <div class="tl-box">
+        <div class="tl-head"><div class="tl-title">Ouverture</div></div>
+        <div class="parch-script ps-gref"><div class="ps-speaker">Le Greffier</div><p class="ps-text">«&nbsp;La Cour est levée. Affaire N° BSR — Juillet 2026. DCHCOM-RSE contre l'Inaction. Le jury est composé de GMD, DMD, les MD et de l'ensemble des directions — que vous soyez présents dans cette salle ou connectés depuis vos filiales, l'audience est ouverte.&nbsp;»</p></div>
+        <div class="parch-script ps-juge"><div class="ps-speaker">Le Juge &nbsp;<em style="color:var(--ink-fade);font-style:italic;font-family:'EB Garamond',serif">[frappe le marteau — 1 coup]</em></div><p class="ps-text">«&nbsp;La Cour prend acte de la comparution de la Direction Communication, Capital Humain et RSE. Monsieur le Procureur, vous avez la parole.&nbsp;»</p></div>
+      </div>
+    </div>
+
+    <!-- SÉQ 2 -->
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:rgba(190,0,32,.55);color:var(--red)">02</div>
+      <div class="tl-box" style="border-color:rgba(190,0,32,.25)">
+        <div class="tl-head"><div class="tl-title" style="color:#ff8080">L'Acte d'Accusation</div></div>
+        <div class="parch-script ps-proc"><div class="ps-speaker">Le Procureur</div><p class="ps-text">«&nbsp;Ces personnes ont eu 6 mois. 6 mois pour prouver que la Communication, le Capital Humain et la RSE ne sont pas de simples directions support, mais des leviers stratégiques pour le Groupe. Je suis responsable d'une direction dont le rôle est de garantir les règles et la rigueur. J'ai travaillé avec elles. Et je suis ici pour questionner l'impact réel de cette direction sur le Groupe.&nbsp;»</p></div>
+        <div class="charges-dock" id="charges">
+          <div class="charge-stamp"><span class="charge-num">CHEF N°1 —</span>Inaction RSE</div>
+          <div class="charge-stamp"><span class="charge-num">CHEF N°2 —</span>Communication sans impact</div>
+          <div class="charge-stamp"><span class="charge-num">CHEF N°3 —</span>Capital Humain négligé</div>
+        </div>
+        <div class="parch-script ps-proc"><div class="ps-speaker">Le Procureur</div><p class="ps-text">«&nbsp;Les résultats présentés devront démontrer que cette direction crée une réelle valeur stratégique pour le Groupe.&nbsp;»</p></div>
+        <div class="parch-script ps-juge"><div class="ps-speaker">Le Juge</div><p class="ps-text">«&nbsp;La Cour a entendu l'accusation. Le collège de la défense a la parole.&nbsp;»</p></div>
+      </div>
+    </div>
+
+    <!-- SÉQ 3 -->
+    <div class="tl-item">
+      <div class="tl-dot">03</div>
+      <div class="tl-box">
+        <div class="tl-head">
+          <div class="tl-title">Les Plaidoiries</div>
+          <div class="tl-dur">RSE 4' · COM 8' · CH 12'</div>
+        </div>
+
+        <div class="stream rse">
+          <div class="stream-label sl-rse">Collège RSE</div>
+          <div class="parch-script ps-narr" style="border-left-color:#2d6a4f"><div class="ps-speaker" style="color:#6dca9e">Head RSE</div><p class="ps-text">«&nbsp;L'accusation prétend que nous ne rendons aucun compte. 2 preuves vont contredire directement cette assertion.&nbsp;»</p></div>
+          <div class="ev-grid">
+            <div class="ev-card rse"><span class="ev-num">PIÈCE N°01</span><span class="ev-txt">Bilan</span></div>
+            <div class="ev-card rse"><span class="ev-num">PIÈCE N°02</span><span class="ev-txt">Perspectives</span></div>
+          </div>
+        </div>
+
+        <div class="stream com">
+          <div class="stream-label sl-com">Collège COM</div>
+          <div class="parch-script ps-narr" style="border-left-color:#1a3a6b"><div class="ps-speaker" style="color:#8dc4e8">Responsable COM</div><p class="ps-text">«&nbsp;L'accusation dit que nous communiquons dans le vide. Je commence par un seul chiffre. <strong>907&nbsp;208</strong>. Ce sont nos abonnés. Ce n'est pas du vide. Maîtres.&nbsp;»</p></div>
+          <div class="ev-grid">
+            <div class="ev-card com"><span class="ev-num">PIÈCE N°03</span><span class="ev-txt">Bilan</span></div>
+            <div class="ev-card com"><span class="ev-num">PIÈCE N°04</span><span class="ev-txt">Perspectives</span></div>
+          </div>
+        </div>
+
+        <div class="stream ch">
+          <div class="stream-label sl-ch">Collège Capital Humain</div>
+          <div class="parch-script ps-narr" style="border-left-color:var(--gold)"><div class="ps-speaker" style="color:var(--gold3)">Directrice CH</div><p class="ps-text">«&nbsp;L'accusation dit que nous négligeons nos collaborateurs. Je vais vous parler de <strong>2&nbsp;628 Cofinois</strong>. Pas des chiffres abstraits — des personnes. Maîtres.&nbsp;»</p></div>
+          <div class="ev-grid">
+            <div class="ev-card ch"><span class="ev-num">PIÈCE N°05</span><span class="ev-txt">Bilan</span></div>
+            <div class="ev-card ch"><span class="ev-num">PIÈCE N°06</span><span class="ev-txt">Perspectives</span></div>
+            <div class="ev-card ch"><span class="ev-num">PIÈCE N°07</span><span class="ev-txt">Bilan</span></div>
+            <div class="ev-card ch"><span class="ev-num">PIÈCE N°08</span><span class="ev-txt">Perspectives</span></div>
+            <div class="ev-card ch"><span class="ev-num">PIÈCE N°09</span><span class="ev-txt">Bilan</span></div>
+            <div class="ev-card ch"><span class="ev-num">PIÈCE N°10</span><span class="ev-txt">Perspectives</span></div>
+          </div>
+        </div>
+
+        <p style="font-size:.82rem;color:var(--text-dim);font-style:italic;margin-top:.7rem;padding:.65rem .9rem;border:1px solid var(--border-dark);border-radius:3px">⟶ Le Juge appelle un témoin filiale (en salle ou en visio). Une question, une réponse.</p>
+      </div>
+    </div>
+
+    <!-- SÉQ 4 -->
+    <div class="tl-item">
+      <div class="tl-dot">04</div>
+      <div class="tl-box">
+        <div class="tl-head"><div class="tl-title">Le Délibéré</div></div>
+        <p style="font-size:.875rem;color:var(--text-mid);line-height:1.75;margin-bottom:.85rem">Les questionneurs posent leurs questions. Ce moment s'appelle le délibéré — un cadre et un poids que le simple Q&amp;A n'a pas.</p>
+        <div class="parch-script ps-juge"><div class="ps-speaker">Le Juge</div><p class="ps-text">«&nbsp;La Cour a entendu le collège de la défense. Avant que le jury ne délibère — Chers Cofinoises et Cofinois, la Cour vous reconnaît le droit de poser vos questions au collège de la défense.&nbsp;»</p></div>
+      </div>
+    </div>
+
+    <!-- SÉQ 5 – VERDICT -->
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:var(--gold2);color:var(--gold2)">05</div>
+      <div class="tl-box" style="border-color:rgba(184,146,10,.32)">
+        <div class="tl-head">
+          <div class="tl-title" style="color:var(--gold2)">Le Verdict</div>
+          <div class="tl-dur" style="color:var(--gold3);border-color:rgba(184,146,10,.38)">⚖ Moment final</div>
+        </div>
+        <p style="font-size:.875rem;color:var(--text-mid);margin-bottom:.85rem">Le Juge se lève. Tout le collège se lève. Le Procureur aussi. Trois secondes de silence.</p>
+        <div class="parch-script ps-juge"><div class="ps-speaker">Le Juge &nbsp;<em style="color:var(--ink-fade);font-style:italic;font-family:'EB Garamond',serif">[frappe le marteau]</em></div><p class="ps-text">«&nbsp;La Cour a délibéré. Au regard des preuves présentées et des résultats documentés — les chefs d'accusation d'inaction ne sont pas établis.&nbsp;»</p></div>
+        <div style="text-align:center;padding:1rem;background:rgba(0,0,0,.55);border-radius:3px;margin:.75rem 0;border:1px solid rgba(184,146,10,.22)">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-weight:700;color:#f5f0e8;letter-spacing:.04em">LA DCHCOM-RSE EST ACQUITTÉE</div>
+        </div>
+        <div class="parch-script ps-proc"><div class="ps-speaker">Le Procureur &nbsp;<em style="color:var(--ink-fade);font-style:italic;font-family:'EB Garamond',serif">[se lève spontanément]</em></div><p class="ps-text">«&nbsp;J'ai accusé la DCHCOM-RSE d'inaction. Les preuves m'obligent à retirer cette accusation. Leur travail a eu un impact réel sur notre filiale.&nbsp;»</p></div>
+        <div class="parch-script ps-juge"><div class="ps-speaker">Le Juge</div><p class="ps-text">«&nbsp;Toutefois — la Cour condamne la DCHCOM-RSE à la performance. <strong>Avec sursis. Contrôle dans 6 mois.</strong> Les objectifs sont posés. Les équipes sont prêtes. L'audience est levée.&nbsp;»</p></div>
+        <div style="text-align:center;padding:1.25rem;background:#000;border-radius:3px;margin-top:.85rem">
+          <div style="font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.3em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.5rem">Dernière slide · Fond noir · Texte blanc</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;color:#f5f0e8;letter-spacing:.04em">CONDAMNÉE À LA PERFORMANCE.</div>
+          <div style="font-family:'Courier Prime',monospace;font-size:.62rem;letter-spacing:.2em;color:var(--gold2);margin-top:.5rem;opacity:.8">Avec sursis · Contrôle dans 6 mois</div>
+          <div style="font-size:.78rem;color:var(--text-dim);font-style:italic;margin-top:.4rem">[L'équipe reste debout.]</div>
+        </div>
+        <div style="margin-top:.85rem;padding:1.1rem 1.4rem;background:rgba(255,255,255,.03);border-radius:3px;border:1px solid var(--border-dark)">
+          <p style="font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:.97rem;color:var(--text-mid);line-height:1.85;text-align:center">
+            Ce procès n'était pas celui d'une direction.<br>
+            Il était celui de la capacité de nos fonctions support à rester des fonctions stratégiques<br>au service de la transformation du Groupe.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════ FINALE ════════════════════ -->
+<section id="finale">
+  <div class="wax-seal rev"></div>
+  <div class="vrd-label rev d1">Verdict final &nbsp;·&nbsp; BSR Juillet 2026 &nbsp;·&nbsp; Groupe COFINA</div>
+  <div class="vrd-main rev d2">
+    CONDAMNÉE<br>
+    <span class="vrd-accent">à la performance.</span>
+  </div>
+  <div class="vrd-sursis rev d3">Avec sursis &nbsp;·&nbsp; Contrôle dans 6 mois</div>
+  <p class="vrd-narr rev d4">
+    Ce procès n'était pas celui d'une direction.<br>
+    Il était celui de la capacité de nos fonctions support<br>
+    à rester des fonctions stratégiques.
+  </p>
+  <div class="vrd-mantra rev d5">
+    <span style="font-size:clamp(.9rem,1.5vw,1rem);color:rgba(180,165,145,.42)">Notre concept est solide.</span>
+    <span style="font-size:clamp(.9rem,1.5vw,1rem);color:rgba(180,165,145,.42)">Nos résultats sont réels.</span>
+    <span style="font-size:clamp(.95rem,1.6vw,1.1rem);color:rgba(215,200,180,.65);margin-top:.3rem">Il ne nous reste plus qu'à plaider.</span>
+    <span style="font-size:clamp(1rem,1.8vw,1.2rem);color:#f0ebe4;font-weight:700;margin-top:.2rem">Et à être condamnés à la performance.</span>
+  </div>
+</section>
+
+<footer>
+  <p>CONFIDENTIEL &nbsp;·&nbsp; USAGE INTERNE &nbsp;·&nbsp; DCHCOM-RSE &nbsp;·&nbsp; GROUPE COFINA &nbsp;·&nbsp; JUILLET 2026</p>
+</footer>
+
+<script>
+const progress = document.getElementById('progress');
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll', () => {
+  const st  = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (st / max * 100) + '%';
+  navbar.classList.toggle('vis', st > window.innerHeight * .38);
+}, {passive: true});
+
+// Révélation au scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.07, rootMargin: '0px 0px -25px 0px' });
+document.querySelectorAll('.rev').forEach(el => io.observe(el));
+
+// Tampons d'accusation — apparition décalée
+const chargesIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.charge-stamp').forEach((s, i) => {
+        setTimeout(() => s.classList.add('on'), i * 340);
+      });
+      chargesIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const dock = document.getElementById('charges');
+if (dock) chargesIO.observe(dock);
+</script>
+</body>
+</html>
